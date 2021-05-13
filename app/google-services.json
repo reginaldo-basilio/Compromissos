@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "682836150828",
+    "project_id": "compromissos-f364c",
+    "storage_bucket": "compromissos-f364c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682836150828:android:f641f93ff5659ebae75f89",
+        "android_client_info": {
+          "package_name": "com.example.compromissos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682836150828-1v848bb93f53og9g2pd6d7002qa0pkk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.compromissos",
+            "certificate_hash": "06563224b23f55ea6439577a4f869fa26b2b86ff"
+          }
+        },
+        {
+          "client_id": "682836150828-7rd8smu0tdj3do71q280lmfdpbn24928.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpzrPTcPHkihtETawvf00xjYSNdcD734E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682836150828-7rd8smu0tdj3do71q280lmfdpbn24928.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
