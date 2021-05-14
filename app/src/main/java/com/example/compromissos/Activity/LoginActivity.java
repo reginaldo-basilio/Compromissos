@@ -3,6 +3,7 @@ package com.example.compromissos.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,14 +49,15 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                login(edtEmail.getText().toString(), edtPassword.getText().toString());
+                efetuarLogin(edtEmail.getText().toString(), edtPassword.getText().toString());
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                edtEmail.setText("");
+                edtPassword.setText("");
             }
         });
 
@@ -74,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login(String email, String password){
+    private void efetuarLogin(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -83,6 +85,10 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             Toast.makeText(LoginActivity.this, "Login realizado com sucesso!", Toast.LENGTH_LONG).show();
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
 
                             //segundo o curso, nao usaremos esses dois
                             //FirebaseUser user = mAuth.getCurrentUser();
