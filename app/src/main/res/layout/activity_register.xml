@@ -18,9 +18,8 @@
             android:gravity="center"
             android:layout_height="match_parent">
 
-
-
             <ImageView
+                android:id="@+id/imgPictureProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="5dp"
@@ -33,7 +32,6 @@
                 android:text="Adicionar foto"
                 android:layout_marginBottom="15dp"
                 android:textStyle="italic"/>
-
 
             <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/edtName"
