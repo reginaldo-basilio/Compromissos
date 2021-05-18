@@ -14,11 +14,14 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.example.compromissos.Entidades.User;
 import com.example.compromissos.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -29,6 +32,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     //instanciando firebase
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         //recuperando instancia firebase auth
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        user = new User();
 
         edtName = (BootstrapEditText) findViewById(R.id.edtName);
         edtEmail = (BootstrapEditText) findViewById(R.id.edtEmail);
@@ -51,7 +60,22 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                criarConta(edtEmail.getText().toString(), edtPassword.getText().toString());
+
+                if(edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
+                    user.setName(edtName.getText().toString());
+                    user.setEmail(edtEmail.getText().toString());
+                    user.setPassword(edtPassword.getText().toString());
+                    if(rbMasc.isChecked()){
+                        user.setSex("Masculino");
+                    }else if(rbFem.isChecked()){
+                        user.setSex("Feminino");
+                    }
+                    inserirUsuarioDatabase(user);
+                }else{
+                    Toast.makeText(RegisterActivity.this, "As senhas não correspondem!", Toast.LENGTH_LONG).show();
+                }
+
+                //criarConta(edtEmail.getText().toString(), edtPassword.getText().toString());
             }
         });
 
@@ -95,6 +119,13 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void inserirUsuarioDatabase(User user){
+        myRef = database.getReference("users");
+        String key = myRef.child("users").push().getKey();
+        user.setKeyUser(key);
+        myRef.child(key).setValue(user);
     }
 
 
