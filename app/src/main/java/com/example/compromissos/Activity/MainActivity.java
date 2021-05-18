@@ -1,13 +1,17 @@
 package com.example.compromissos.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.example.compromissos.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -60,5 +64,27 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if(id == R.id.action_disconnect){
+            desconectarUsuario();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void desconectarUsuario(){
+        FirebaseAuth.getInstance().signOut();
+        abrirTelaLogin();
+        Toast.makeText(MainActivity.this, "Usuário desconectado!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void abrirTelaLogin(){
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
