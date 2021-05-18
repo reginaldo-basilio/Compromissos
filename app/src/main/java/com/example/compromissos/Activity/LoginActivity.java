@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //instanciando firebase
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,14 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             Toast.makeText(LoginActivity.this, "Login realizado com sucesso!", Toast.LENGTH_LONG).show();
-
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                            //segundo o curso, nao usaremos esses dois
-                            //FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                            abrirMainActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
@@ -109,5 +103,20 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            //reload();
+            abrirMainActivity();
+        }
+    }
 
+    private void abrirMainActivity(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

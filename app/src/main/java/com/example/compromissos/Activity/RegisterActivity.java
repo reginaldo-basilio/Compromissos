@@ -70,12 +70,12 @@ public class RegisterActivity extends AppCompatActivity {
                     }else if(rbFem.isChecked()){
                         user.setSex("Feminino");
                     }
-                    inserirUsuarioDatabase(user);
+                    criarConta(user);
                 }else{
                     Toast.makeText(RegisterActivity.this, "As senhas não correspondem!", Toast.LENGTH_LONG).show();
                 }
 
-                //criarConta(edtEmail.getText().toString(), edtPassword.getText().toString());
+
             }
         });
 
@@ -94,8 +94,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void criarConta(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
+    private void criarConta(final User user){
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -104,6 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d("TAG", "createUserWithEmail:success");
                             Toast.makeText(RegisterActivity.this, "Usuário cadastrado com sucesso!.",
                                     Toast.LENGTH_SHORT).show();
+                            inserirUsuarioDatabase(user);
                             abrirMainActivity();
                         } else {
                             // If sign in fails, display a message to the user.
