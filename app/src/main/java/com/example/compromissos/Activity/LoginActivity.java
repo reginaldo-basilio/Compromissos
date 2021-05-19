@@ -3,6 +3,7 @@ package com.example.compromissos.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,13 +23,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private BootstrapButton btnLogin, btnCancel, btnRegister;
-    private BootstrapEditText edtEmail, edtPassword;
+    private BootstrapButton btnLogin, btnCancel, btnRegister, btnCancelAlert, btnSendEmail;
+    private BootstrapEditText edtEmail, edtPassword, edtSendEmail;
     private TextView txtRecoveryPassword;
 
     //instanciando firebase
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         edtEmail = (BootstrapEditText) findViewById(R.id.edtEmail);
         edtPassword = (BootstrapEditText) findViewById(R.id.edtPassword);
+
 
         txtRecoveryPassword = (TextView) findViewById(R.id.txtRecoveryPassword);
 
@@ -72,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         txtRecoveryPassword.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                abrirDialog();
             }
         });
     }
@@ -119,4 +122,42 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    private void abrirDialog(){
+        dialog = new Dialog(LoginActivity.this);
+        dialog.setContentView(R.layout.alert_recovery_password);
+        btnCancelAlert = (BootstrapButton) dialog.findViewById(R.id.btnCancelAlert);
+        btnSendEmail = (BootstrapButton) dialog.findViewById(R.id.btnSendEmail);
+        edtSendEmail = (BootstrapEditText) dialog.findViewById(R.id.edtSendEmail);
+
+        btnSendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mAuth.sendPasswordResetEmail(edtSendEmail.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("TAG", "Email sent.");
+                                    Toast.makeText(LoginActivity.this, "Verifique sua caixa de entrada", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Falha ao enviar o e-mail", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                dialog.dismiss();
+            }
+        });
+
+        btnCancelAlert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
 }

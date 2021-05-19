@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                abrirTelaLogin();
             }
         });
 
@@ -127,6 +127,12 @@ public class RegisterActivity extends AppCompatActivity {
         String key = myRef.child("users").push().getKey();
         user.setKeyUser(key);
         myRef.child(key).setValue(user);
+    }
+
+    private void abrirTelaLogin(){
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 
