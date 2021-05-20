@@ -8,6 +8,7 @@ public class User {
     private String sex;
     private String keyUser;
     private String password;
+    private String uid;
 
     public String getName() {
         return name;
@@ -48,5 +49,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
