@@ -146,6 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                             byte[] data = baos.toByteArray();
 
                             UploadTask uploadTask = profileRef.putBytes(data);
+
                             uploadTask.addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception exception) {
@@ -246,4 +247,12 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    private void testMetod(){
+
+    }
+
+
+
 }
