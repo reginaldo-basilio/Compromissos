@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -72,9 +74,14 @@ public class MainActivity extends AppCompatActivity {
         if(id == R.id.action_disconnect){
             desconectarUsuario();
             return true;
+        }else if(id == R.id.action_profile){
+            abrirPerfilUsuario();
+            return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+
 
     private void desconectarUsuario(){
         FirebaseAuth.getInstance().signOut();
@@ -87,4 +94,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    private void abrirPerfilUsuario(){
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
 }

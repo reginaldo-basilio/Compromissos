@@ -25,11 +25,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final int PERMISSION_CAMERA = 10;
     private static final int PERMISSION_WRITE = 11;
     private static final int PERMISSION_READ = 12;
+    private static final int PERMISSOES_REQUERIDAS = 15;
+    String[] appPermissoes = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
 
     private BootstrapButton btnLogin, btnCancel, btnRegister, btnCancelAlert, btnSendEmail;
     private BootstrapEditText edtEmail, edtPassword, edtSendEmail;
@@ -43,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         //recuperando instancia firebase auth
@@ -117,7 +127,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         verificarPermissoes();
 
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -172,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void verificarPermissoes(){
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
