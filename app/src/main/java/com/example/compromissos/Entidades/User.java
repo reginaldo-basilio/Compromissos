@@ -2,6 +2,9 @@ package com.example.compromissos.Entidades;
 
 import com.google.firebase.database.Exclude;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
     private String name;
     private String email;
@@ -9,6 +12,19 @@ public class User {
     private String keyUser;
     private String password;
     private String uid;
+    public Map<String, Boolean> users = new HashMap<>();
+
+    public User(){
+
+    }
+
+    public User(String name, String email, String sex, String keyUser, String uid) {
+        this.name = name;
+        this.email = email;
+        this.sex = sex;
+        this.keyUser = keyUser;
+        this.uid = uid;
+    }
 
     public String getName() {
         return name;
@@ -58,4 +74,19 @@ public class User {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("email", email);
+        result.put("sex", sex);
+        result.put("keyUser", keyUser);
+        result.put("uid", uid);
+        result.put("users", users);
+
+        return result;
+    }
+
+
 }

@@ -18,101 +18,101 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center"
-                    android:text="Perfil do Usuário"
-                    android:textSize="25sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="Perfil do Usuário"
+                android:textSize="25sp"/>
 
-                <com.beardedhen.androidbootstrap.BootstrapEditText
-                    android:id="@+id/edtName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="lg"
-                    android:layout_marginTop="5dp"
-                    app:roundedCorners="true" />
-                <com.beardedhen.androidbootstrap.BootstrapEditText
-                    android:id="@+id/edtEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:inputType="textEmailAddress"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="lg"
-                    android:layout_marginTop="5dp"
-                    app:roundedCorners="true" />
-                <com.beardedhen.androidbootstrap.BootstrapEditText
-                    android:id="@+id/edtPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Senha"
-                    android:inputType="textPersonName"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="lg"
-                    android:layout_marginTop="5dp"
-                    app:roundedCorners="true" />
-                <com.beardedhen.androidbootstrap.BootstrapEditText
-                    android:id="@+id/edtConfirmPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Confirmar senha"
-                    android:inputType="textPersonName"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="lg"
-                    android:layout_marginTop="5dp"
-                    app:roundedCorners="true" />
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="5dp"
+                app:roundedCorners="true" />
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textEmailAddress"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="5dp"
+                app:roundedCorners="true" />
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Senha"
+                android:inputType="textPassword"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="5dp"
+                app:roundedCorners="true" />
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Confirmar senha"
+                android:inputType="textPassword"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="5dp"
+                app:roundedCorners="true" />
 
-                <RadioGroup
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <RadioButton
+                    android:id="@+id/rbFem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:checked="true"
+                    android:text="Feminino"/>
 
-                    <RadioButton
-                        android:id="@+id/rbFem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Feminino"/>
-
-                    <RadioButton
-                        android:id="@+id/rbMasc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Masculino"/>
-
-                </RadioGroup>
-
-                <com.beardedhen.androidbootstrap.BootstrapButton
-                    android:id="@+id/btnUpdate"
+                <RadioButton
+                    android:id="@+id/rbMasc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Atualizar"
-                    app:bootstrapBrand="success"
-                    app:bootstrapSize="lg"
-                    app:buttonMode="regular"
-                    app:roundedCorners="true"
-                    android:layout_marginTop="5dp"
-                    app:showOutline="false" />
+                    android:text="Masculino"/>
 
-                <com.beardedhen.androidbootstrap.BootstrapButton
-                    android:id="@+id/btnCancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cancelar"
-                    app:bootstrapBrand="danger"
-                    app:bootstrapSize="lg"
-                    app:buttonMode="regular"
-                    app:roundedCorners="true"
-                    android:layout_marginTop="5dp"
-                    app:showOutline="false" />
+            </RadioGroup>
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Atualizar"
+                app:bootstrapBrand="success"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                android:layout_marginTop="5dp"
+                app:showOutline="false" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                app:bootstrapBrand="danger"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                android:layout_marginTop="5dp"
+                app:showOutline="false" />
         </LinearLayout>
     </ScrollView>
 
