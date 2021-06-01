@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
     tools:context=".Activity.ProfileActivity">
 
     <ScrollView
@@ -15,16 +14,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:gravity="center"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgPictureProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ic_baseline_camera_front_24"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:gravity="center"
-                android:text="Perfil do Usuário"
-                android:textSize="25sp"/>
+                android:text="Adicionar/Alterar foto"
+                android:layout_marginBottom="15dp"
+                android:textStyle="italic"/>
 
             <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/edtName"
@@ -108,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:text="Cancelar"
                 app:bootstrapBrand="danger"
+                android:layout_marginBottom="16dp"
                 app:bootstrapSize="lg"
                 app:buttonMode="regular"
                 app:roundedCorners="true"
