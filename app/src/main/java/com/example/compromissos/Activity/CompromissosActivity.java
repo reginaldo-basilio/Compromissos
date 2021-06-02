@@ -10,6 +10,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.compromissos.Entidades.Compromisso;
 import com.example.compromissos.Entidades.User;
+import com.example.compromissos.Helper.MaskEditText;
 import com.example.compromissos.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,6 +38,8 @@ public class CompromissosActivity extends AppCompatActivity {
         edtTitulo = (BootstrapEditText) findViewById(R.id.edtTitulo);
         edtDescription = (BootstrapEditText) findViewById(R.id.edtDescription);
         edtDate = (BootstrapEditText) findViewById(R.id.edtDate);
+        edtDate.addTextChangedListener(MaskEditText.mask(edtDate, MaskEditText.FORMAT_DATE));
+
         btnInserir = (BootstrapButton) findViewById(R.id.btnInsert);
         btnCancel = (BootstrapButton) findViewById(R.id.btnCancel);
 
