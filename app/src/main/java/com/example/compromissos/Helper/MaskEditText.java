@@ -6,8 +6,13 @@ import android.widget.EditText;
 
 public class MaskEditText {
 
-    public static final String FORMAT_DATE = "##/##/#### ##:##";
     public static final String FORMAT_CPF = "###.###.###-##";
+    public static final String FORMAT_FONE = "(##) ####-####";
+    public static final String FORMAT_CELULAR = "(##) #####-####";
+    public static final String FORMAT_CEP = "#####-###";
+    public static final String FORMAT_DATE = "##/##/####";
+    public static final String FORMAT_HOUR = "##h##m";
+    public static final String FORMAT_DATE_HOUR = "##/##/## - ##h##m";
 
     public static TextWatcher mask(final EditText editText, final String mask){
         return new TextWatcher() {

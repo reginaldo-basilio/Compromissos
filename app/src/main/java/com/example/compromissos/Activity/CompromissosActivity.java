@@ -38,7 +38,7 @@ public class CompromissosActivity extends AppCompatActivity {
         edtTitulo = (BootstrapEditText) findViewById(R.id.edtTitulo);
         edtDescription = (BootstrapEditText) findViewById(R.id.edtDescription);
         edtDate = (BootstrapEditText) findViewById(R.id.edtDate);
-        edtDate.addTextChangedListener(MaskEditText.mask(edtDate, MaskEditText.FORMAT_DATE));
+        edtDate.addTextChangedListener(MaskEditText.mask(edtDate, MaskEditText.FORMAT_DATE_HOUR));
 
         btnInserir = (BootstrapButton) findViewById(R.id.btnInsert);
         btnCancel = (BootstrapButton) findViewById(R.id.btnCancel);
