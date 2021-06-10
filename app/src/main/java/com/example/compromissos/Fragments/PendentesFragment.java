@@ -2,13 +2,29 @@ package com.example.compromissos.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.compromissos.Adapter.CompromissoAdapter;
+import com.example.compromissos.Entidades.Compromisso;
 import com.example.compromissos.R;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +32,13 @@ import com.example.compromissos.R;
  * create an instance of this fragment.
  */
 public class PendentesFragment extends Fragment {
+
+    private RecyclerView mRecyclerView;
+    private CompromissoAdapter adapter;
+    private List<Compromisso> compromissosList;
+    private DatabaseReference databaseReference;
+    private Compromisso compromisso;
+    private LinearLayoutManager mLinearLayoutManager;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +84,36 @@ public class PendentesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pendentes, container, false);
+        View view = inflater.inflate(R.layout.fragment_pendentes, container, false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        popularListaCompromisso();
+        return view;
     }
+
+    private void popularListaCompromisso(){
+        mRecyclerView.setHasFixedSize(true);
+        mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        compromissosList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("compromissos").orderByChild("status").equalTo("Pendente").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                compromissosList.clear();
+                for(DataSnapshot compromissoSnapshot : snapshot.getChildren()){
+                    compromisso = compromissoSnapshot.getValue(Compromisso.class);
+                    compromissosList.add(compromisso);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+        adapter = new CompromissoAdapter(compromissosList, getContext());
+        mRecyclerView.setAdapter(adapter);
+    }
+
 }

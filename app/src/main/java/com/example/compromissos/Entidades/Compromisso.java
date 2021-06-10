@@ -6,6 +6,7 @@ public class Compromisso {
     private String descricao;
     private String date;
     private String keyCompromisso;
+    private String status;
 
     public String getTitulo() {
         return titulo;
@@ -37,5 +38,13 @@ public class Compromisso {
 
     public void setKeyCompromisso(String keyCompromisso) {
         this.keyCompromisso = keyCompromisso;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

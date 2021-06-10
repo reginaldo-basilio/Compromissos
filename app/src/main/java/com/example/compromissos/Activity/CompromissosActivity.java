@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.compromissos.Entidades.Compromisso;
-import com.example.compromissos.Entidades.User;
 import com.example.compromissos.Helper.MaskEditText;
 import com.example.compromissos.R;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +49,7 @@ public class CompromissosActivity extends AppCompatActivity {
                 compromisso.setTitulo(edtTitulo.getText().toString());
                 compromisso.setDescricao(edtDescription.getText().toString());
                 compromisso.setDate(edtDate.getText().toString());
+                compromisso.setStatus("Pendente");
 
                 inserirCompromissoDatabase(compromisso);
             }
@@ -69,6 +69,7 @@ public class CompromissosActivity extends AppCompatActivity {
         compromisso.setKeyCompromisso(key);
         myRef.child(key).setValue(compromisso);
         Toast.makeText(this, "Compromisso agendado!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 }
