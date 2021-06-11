@@ -30,7 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private TabLayout tabLayout;
@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if(id == R.id.action_profile){
             abrirPerfilUsuario();
             return true;
+        }else if(id == R.id.action_share){
+            compartilharApp();
         }
 
         return super.onOptionsItemSelected(item);
@@ -147,16 +149,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    private void compartilharApp(){
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
-    ////NAO FUNCIONA
-    @Override
-    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.nav_profile) {
-            abrirPerfilUsuario();
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        share.putExtra(Intent.EXTRA_SUBJECT, "Olá, já conhece nosso o App Compromissos?");
+        share.putExtra(Intent.EXTRA_TEXT, "Testando");
+        startActivity(Intent.createChooser(share, "Compartilhar App"));
     }
+
+
+
 }

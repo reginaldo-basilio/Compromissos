@@ -7,6 +7,7 @@ public class Compromisso {
     private String date;
     private String keyCompromisso;
     private String status;
+    private String uid;
 
     public String getTitulo() {
         return titulo;
@@ -46,5 +47,13 @@ public class Compromisso {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

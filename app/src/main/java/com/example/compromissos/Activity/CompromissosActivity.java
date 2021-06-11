@@ -11,6 +11,8 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.compromissos.Entidades.Compromisso;
 import com.example.compromissos.Helper.MaskEditText;
 import com.example.compromissos.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +26,7 @@ public class CompromissosActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private FirebaseUser userAlth;
 
     private Compromisso compromisso;
 
@@ -45,11 +48,15 @@ public class CompromissosActivity extends AppCompatActivity {
         btnInserir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userAlth = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = userAlth.getUid();
+
                 compromisso = new Compromisso();
                 compromisso.setTitulo(edtTitulo.getText().toString());
                 compromisso.setDescricao(edtDescription.getText().toString());
                 compromisso.setDate(edtDate.getText().toString());
                 compromisso.setStatus("Pendente");
+                compromisso.setUid(uid);
 
                 inserirCompromissoDatabase(compromisso);
             }

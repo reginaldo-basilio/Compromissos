@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.compromissos.Adapter.CompromissoAdapter;
 import com.example.compromissos.Entidades.Compromisso;
 import com.example.compromissos.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +38,7 @@ public class PassadosFragment extends Fragment {
     private CompromissoAdapter adapter;
     private List<Compromisso> compromissosList;
     private DatabaseReference databaseReference;
+    private FirebaseUser userAlth;
     private Compromisso compromisso;
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -97,6 +99,10 @@ public class PassadosFragment extends Fragment {
     }
 
     private void popularListaCompromisso(){
+
+        userAlth = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = userAlth.getUid();
+
         mRecyclerView.setHasFixedSize(true);
         mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -108,7 +114,11 @@ public class PassadosFragment extends Fragment {
                 compromissosList.clear();
                 for(DataSnapshot compromissoSnapshot : snapshot.getChildren()){
                     compromisso = compromissoSnapshot.getValue(Compromisso.class);
-                    compromissosList.add(compromisso);
+
+                    if(compromisso.getUid() != null && compromisso.getUid().equals(uid)){
+                    //if(compromisso.getUid().equals(uid)){
+                        compromissosList.add(compromisso);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
