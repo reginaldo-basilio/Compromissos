@@ -17,6 +17,8 @@ import com.example.compromissos.Entidades.Compromisso;
 import com.example.compromissos.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +34,9 @@ public class CompromissoAdapter extends RecyclerView.Adapter<CompromissoAdapter.
     private Dialog dialog;
 
     private BootstrapButton btnEditCompromisso, btnUpdateStatus, btnDelete;
-    private TextView txtDescription;
+    private TextView txtName, txtDate;
+
+    private DatabaseReference mDatabase;
 
 
     public CompromissoAdapter(List<Compromisso> l, Context c){
@@ -51,21 +55,15 @@ public class CompromissoAdapter extends RecyclerView.Adapter<CompromissoAdapter.
     @Override
     public void onBindViewHolder(final CompromissoAdapter.ViewHolder holder, int position) {
 
-        Compromisso item = mCompromissoList.get(position);
+        final Compromisso item = mCompromissoList.get(position);
 
         holder.txtName.setText(item.getTitulo());
         holder.txtDate.setText(item.getDate());
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Short click", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                abrirDialog();
+                abrirDialog(item);
                 return false;
             }
         });
@@ -93,14 +91,26 @@ public class CompromissoAdapter extends RecyclerView.Adapter<CompromissoAdapter.
         }
     }
 
-    private void abrirDialog(){
+    private void abrirDialog(Compromisso compromisso){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.alert_update_status_compromisso);
 
         btnEditCompromisso = (BootstrapButton) dialog.findViewById(R.id.btnEditCompromisso);
         btnUpdateStatus = (BootstrapButton) dialog.findViewById(R.id.btnUpdateStatus);
         btnDelete = (BootstrapButton) dialog.findViewById(R.id.btnDelete);
-        txtDescription = (TextView) dialog.findViewById(R.id.txtDescription);
+        txtName = (TextView) dialog.findViewById(R.id.txtName);
+        txtDate = (TextView) dialog.findViewById(R.id.txtDate);
+
+        if(compromisso.getStatus().equals("Passado")){
+            btnUpdateStatus.setText("Marcar como Pendente");
+        }else if(compromisso.getStatus().equals("Pendente")){
+            btnUpdateStatus.setText("Marcar como Passado");
+        }
+
+        txtName.setText(compromisso.getTitulo().toString());
+        txtDate.setText(compromisso.getDate().toString());
 
         btnEditCompromisso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +129,7 @@ public class CompromissoAdapter extends RecyclerView.Adapter<CompromissoAdapter.
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDatabase.child("compromissos").child(compromisso.getKeyCompromisso()).removeValue();
                 dialog.dismiss();
             }
         });
