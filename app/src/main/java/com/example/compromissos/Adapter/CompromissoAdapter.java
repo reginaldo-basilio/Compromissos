@@ -122,6 +122,11 @@ public class CompromissoAdapter extends RecyclerView.Adapter<CompromissoAdapter.
         btnUpdateStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(compromisso.getStatus().equals("Passado")){
+                    mDatabase.child("compromissos").child(compromisso.getKeyCompromisso()).child("status").setValue("Pendente");
+                }else if(compromisso.getStatus().equals("Pendente")){
+                    mDatabase.child("compromissos").child(compromisso.getKeyCompromisso()).child("status").setValue("Passado");
+                }
                 dialog.dismiss();
             }
         });
